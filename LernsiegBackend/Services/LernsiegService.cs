@@ -23,12 +23,7 @@ namespace LernsiegBackend
             }
         }
 
-        public string ResetDatabase()
-        {
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-            return "success";
-        }
+       
 
         public IEnumerable<School> TopSchools(string country)
         {

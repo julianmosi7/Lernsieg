@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using LernsiegBackend.Dtos;
 using LernsiegDbLib;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,13 +21,23 @@ namespace LernsiegBackend.Controllers
         public LernsiegController(LernsiegService lernsiegService)
         {
             this.lernsiegService = lernsiegService;
+            var db = CreateContext();
+            int nr = db.Teachers.Count();
         }
 
-        [HttpGet]
-        public string ResetDatabase()
+        private static LernsiegContext CreateContext()
         {
-            return this.lernsiegService.ResetDatabase();
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var optionsBuilder = new DbContextOptionsBuilder<LernsiegContext>();
+            optionsBuilder.UseSqlServer(config.GetConnectionString("LernsiegMdf"));
+            var db = new LernsiegContext(optionsBuilder.Options);
+            return db; 
         }
+
+        
 
 
         [HttpGet]
