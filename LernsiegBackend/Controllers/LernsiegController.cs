@@ -21,74 +21,102 @@ namespace LernsiegBackend.Controllers
         public LernsiegController(LernsiegService lernsiegService)
         {
             this.lernsiegService = lernsiegService;
-            var db = CreateContext();
-            int nr = db.Teachers.Count();
         }
-
-        private static LernsiegContext CreateContext()
-        {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            var optionsBuilder = new DbContextOptionsBuilder<LernsiegContext>();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("LernsiegMdf"));
-            var db = new LernsiegContext(optionsBuilder.Options);
-            return db; 
-        }
-
         
-
+        [HttpGet("{country}")]
+        public IEnumerable<SchoolDto> TopSchools(string country)
+        {
+            return lernsiegService.TopSchools(country).Select(x => new SchoolDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Address = x.Address,
+                Country = x.Country,
+                SchoolNumber = x.SchoolNumber
+            });
+        }
 
         [HttpGet]
-        public IEnumerable<SchoolDto> TopSchools(string country)
+        public IEnumerable<SchoolDto> FindSchools(string country, string filter)
         {
             return null;
         }
 
+        [HttpGet("{id}")]
+        public SchoolDto GetSchool(int id)
+        {
+            School school = lernsiegService.GetSchool(id);
+            SchoolDto schoolDto = new SchoolDto
+            {
+                Id = school.Id,
+                Name = school.Name,
+                Address = school.Address,
+                Country = school.Country,
+                SchoolNumber = school.SchoolNumber
+            };
+            return schoolDto;
+        }
 
+        [HttpGet]
+        public IEnumerable<TeacherDto> FindTeachers(int schoolId, string filter)
+        {
+            return null;
+        }
 
+        [HttpGet("{id}")]
+        public TeacherDto GetTeacher(int id)
+        {
+            Teacher teacher = lernsiegService.GetTeacher(id);
+            TeacherDto teacherDto = new TeacherDto
+            {
+                Id = teacher.Id,
+                Name = teacher.Name,
+                Title = teacher.Title
+            };
+            return teacherDto;
+        }
 
-        //[HttpGet]
-        //public IEnumerable<SchoolDto> FindSchools(string country, string filter)
-        //{
-        //    return null;
-        //}
+        [HttpGet("{schoolOrTeacherid, evaluationType}")]
+        public IEnumerable<EvaluationDto> Evaluations(int schoolOrTeacherid, int evaluationType)
+        {
+            return lernsiegService.Evaluations(schoolOrTeacherid, evaluationType).Select(x => new EvaluationDto
+            {
+                Id = x.Id,
+                SchoolOrTeacherId = x.SchoolOrTeacherId,
+                EvaluationType = x.EvaluationType,
+                PhoneNr = x.PhoneNr
+            });
+        }
 
-        //[HttpGet]
-        //public SchoolDto GetSchool(int id)
-        //{
-        //    return null;
-        //}
+        [HttpGet("{evaluationType}")]
+        public IEnumerable<CriteriaDto> Criterias(int evaluationType)
+        {
+            return lernsiegService.Criterias(evaluationType).Select(x => new CriteriaDto
+            {
+                Id = x.Id,
+                EvaluationType = x.EvaluationType,
+                Description = x.Description,
+                SequenceNr = x.SequenceNr
+            });
+        }
 
-        //[HttpGet]
-        //public IEnumerable<TeacherDto> FindTeachers(int schoolId, string filter)
-        //{
-        //    return null;
-        //}
-
-        //[HttpGet]
-        //public TeacherDto GetTeacher(int id)
-        //{
-        //    return null;
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<EvaluationDto> Evaluations(int schoolOrTeacherid, int evaluationType)
-        //{
-        //    return null;
-        //}
-
-        //[HttpGet]
-        //public IEnumerable<CriteriaDto> Criterias(int evaluationType)
-        //{
-        //    return null;
-        //}
-
-        //[HttpPost]
-        //public EvaluationReplyDto SaveEvaluation([FromBody] EvaluationSaveDto data)
-        //{
-        //    return null;
-        //}
+        [HttpPost]
+        public EvaluationReplyDto SaveEvaluation([FromBody] EvaluationSaveDto data)
+        {
+            Evaluation evaluation = new Evaluation
+            {
+                SchoolOrTeacherId = data.SchoolOrTeacherId,
+                EvaluationType = data.EvaluationType,
+                PhoneNr = data.PhoneNr
+            };
+            Evaluation evaluationReply = lernsiegService.SaveEvaluation(evaluation);
+            return new EvaluationReplyDto
+            {
+                Id = evaluationReply.Id,
+                SchoolOrTeacherId = evaluation.SchoolOrTeacherId,
+                EvaluationType = evaluation.EvaluationType,
+                PhoneNr = evaluation.PhoneNr
+            };
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LernsiegDbLib
 {
@@ -8,6 +9,7 @@ namespace LernsiegDbLib
         public int Id { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
-        public virtual School School { get; set; }
+        [ForeignKey("SchoolId")]
+        public School School { get; set; }
     }
 }

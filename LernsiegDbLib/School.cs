@@ -10,6 +10,6 @@ namespace LernsiegDbLib
         public string Country { get; set; }
         public int SchoolNumber { get; set; }
         public string Address { get; set; }
-        public virtual List<Teacher> Teachers { get; set; }
+        public List<Teacher> Teachers { get; set; }
     }
 }

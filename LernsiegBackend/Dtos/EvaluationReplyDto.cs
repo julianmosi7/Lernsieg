@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace LernsiegDbLib
+namespace LernsiegBackend.Dtos
 {
-    public class Evaluation
+    public class EvaluationReplyDto
     {
         public int Id { get; set; }
         public int SchoolOrTeacherId { get; set; }
         public int EvaluationType { get; set; }
         public string PhoneNr { get; set; }
-        public List<EvaluationItem> EvaluationItems { get; set; }
     }
 }

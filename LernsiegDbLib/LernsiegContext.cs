@@ -5,6 +5,7 @@ namespace LernsiegDbLib
 {
     public class LernsiegContext : DbContext
     {
+        public LernsiegContext(DbContextOptions<LernsiegContext> options) : base(options) { }
         public LernsiegContext() { }
 
         public DbSet<School> Schools { get; set; }
@@ -17,9 +18,14 @@ namespace LernsiegDbLib
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = "data source=(LocalDB)\\mssqllocaldb; attachdbfilename=/Users/julianmosi/Documents/School/5.Klasse/POS/Lernsieg;database=Lernsieg;integrated security=True; MultipleActiveResultSets=True";
+                var connectionString = "data source=(LocalDB)\\mssqllocaldb; attachdbfilename=C:\\Users\\mosha\\Documents\\Schule\\5.Klasse\\POS\\Lernsieg\\Lernsieg.mdf;database=Lernsieg;integrated security=True; MultipleActiveResultSets=True";
                 optionsBuilder.UseSqlServer(connectionString);
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
         }
     }
 }

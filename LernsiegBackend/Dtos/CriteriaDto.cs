@@ -1,7 +1,11 @@
 ﻿using System;
-namespace LernsiegDbLib
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace LernsiegBackend.Dtos
 {
-    public class Criteria
+    public class CriteriaDto
     {
         public int Id { get; set; }
         public int EvaluationType { get; set; }
