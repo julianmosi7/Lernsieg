@@ -8,18 +8,18 @@ namespace LernsiegDbLib
         public LernsiegContext(DbContextOptions<LernsiegContext> options) : base(options) { }
         public LernsiegContext() { }
 
-        public DbSet<School> Schools { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Evaluation> Evaluations { get; set; }
-        public DbSet<EvaluationItem> EvaluationItems { get; set; }
-        public DbSet<Criteria> Criterias { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<Evaluation> Evaluations { get; set; }
+        public virtual DbSet<EvaluationItem> EvaluationItems { get;  set; }
+        public virtual DbSet<Criteria> Criterias { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 var connectionString = "data source=(LocalDB)\\mssqllocaldb; attachdbfilename=C:\\Users\\mosha\\Documents\\Schule\\5.Klasse\\POS\\Lernsieg\\Lernsieg.mdf;database=Lernsieg;integrated security=True; MultipleActiveResultSets=True";
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseSqlite(connectionString);
             }
         }
 

@@ -15,23 +15,6 @@ namespace LernsiegDbLib
             int count = 0;
             var location = Assembly.GetExecutingAssembly().Location;
             string dataDirectory = Path.GetDirectoryName(location);
-            string fullPathTeachers = Path.Combine(dataDirectory, "teachers.csv");
-            Console.WriteLine($"DbSeed using file {fullPathTeachers}");
-            File.ReadAllLines(fullPathTeachers)
-                .Skip(1)
-                .ToList()
-                .ForEach(line =>
-                {
-                    count = count + 1;
-                    modelBuilder.Entity<Teacher>().HasData(new Teacher
-                    {
-                        Id = count,
-                        Name = line.Split(";")[0],
-                        Title = line.Split(";")[1],
-                    });
-                });
-
-            count = 0;
             string fullPathSchools = Path.Combine(dataDirectory, "schools.csv");
             Console.WriteLine($"DbSeed using file {fullPathSchools}");
             File.ReadAllLines(fullPathSchools)
@@ -48,7 +31,26 @@ namespace LernsiegDbLib
                         Address = line.Split(";")[2],
                         Country = "at"
                     });
-                });     
+                });
+
+            count = 0;
+            string fullPathTeachers = Path.Combine(dataDirectory, "teachers.csv");
+            Console.WriteLine($"DbSeed using file {fullPathTeachers}");
+            File.ReadAllLines(fullPathTeachers)
+                .Skip(1)
+                .ToList()
+                .ForEach(line =>
+                {
+                    count = count + 1;
+                    modelBuilder.Entity<Teacher>().HasData(new Teacher
+                    {
+                        Id = count,
+                        Name = line.Split(";")[0],
+                        Title = line.Split(";")[1]
+                    });
+                });
+
+            
         }
     }
 }
