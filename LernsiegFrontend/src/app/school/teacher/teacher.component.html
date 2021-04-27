@@ -1,0 +1,16 @@
+<div id="container">
+  <ion-searchbar placeholder="Schulname/PLZ" (ionChange)="filterList($event)"></ion-searchbar>
+  <ion-list>
+    <div class="card-hover">
+      <ion-card *ngFor="let teacher of teachers" (click)="teacherSelected(teacher.id)">
+        <ion-item>
+          <ion-icon slot="start" name="star"></ion-icon>
+          <ion-header>
+            <ion-card-title>{{teacher.name}}</ion-card-title>
+            <ion-card-subtitle>{{teacher.title}}</ion-card-subtitle>
+          </ion-header>
+        </ion-item>
+      </ion-card>
+    </div>
+  </ion-list>
+</div>

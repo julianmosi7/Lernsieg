@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{teacher.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-item>
+      <ion-label>Tel.Nr.</ion-label>
+      <ion-input placeholder="Deine Telefonnummer" (ionChange)="telephoneNrChanged()" [(ngModel)]="telephoneNr"></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-item>
+        <ion-label slot="start">Unterricht</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Fairness</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Respekt</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-button expand="block" [disabled]="hideSaveBtn" (click)="saveBtnClick()">Save</ion-button>
+</ion-content>

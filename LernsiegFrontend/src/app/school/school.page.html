@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar style="text-align: center;">
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{school.name}}</ion-title>
+    <ion-label>{{school.address}}</ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="schoolevaluation">
+        <ion-label>SCHULE</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="teacher">
+        <ion-label>LEHRER</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <app-schoolevaluation [school]="school" *ngIf="showSchoolEvaluation"></app-schoolevaluation>
+    <app-teacher *ngIf="showTeachers"></app-teacher>
+  </div>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Schulen
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Schulen</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-searchbar placeholder="Schulname/PLZ" (ionChange)="filterList($event)"></ion-searchbar>
+    <ion-list>
+      <div class="card-hover">
+        <ion-card *ngFor="let school of filteredSchools" (click)="schoolSelected(school.id)">
+          <ion-item>
+            <ion-icon slot="start" name="star"></ion-icon>
+            <ion-header>
+              <ion-card-title>{{school.name}}</ion-card-title>
+              <ion-card-subtitle>{{school.address}}</ion-card-subtitle>
+            </ion-header>
+          </ion-item>
+        </ion-card>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
