@@ -20,9 +20,25 @@ namespace LernsiegBackend
             return db.Schools.Where(x => x.Country == country).AsEnumerable();
         }
 
+        public IEnumerable<School> FindSchools(string country, string filter)
+        {
+            return db.Schools.Where(x => x.Country == country)
+                .Where(y => (y.Name.Contains(filter)) || (y.Address.Contains(filter))).AsEnumerable();
+        }
+
         public School GetSchool(int id)
         {
             return db.Schools.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<Teacher> GetTeachersOfSchool(int schoolNumber)
+        {
+            return db.Teachers.Where(x => x.SchoolNumber == schoolNumber).AsEnumerable();
+        }
+
+        public IEnumerable<Teacher> FindTeachers(int schoolNumber, string filter)
+        {
+            return db.Teachers.Where(x => x.SchoolNumber == schoolNumber).Where(x => x.Name.Contains(filter)).AsEnumerable();
         }
 
         public Teacher GetTeacher(int id)
@@ -45,6 +61,10 @@ namespace LernsiegBackend
             try
             {
                 db.Evaluations.Add(evaluation);
+                foreach (var ev in evaluation.EvaluationItems)
+                {
+                    db.EvaluationItems.Add(ev);
+                }
                 db.SaveChanges();
                 return db.Evaluations.Where(x => x.PhoneNr == evaluation.PhoneNr).FirstOrDefault();
             }catch(Exception exc)

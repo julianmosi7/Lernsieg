@@ -17,7 +17,7 @@
     <ion-searchbar placeholder="Schulname/PLZ" (ionChange)="filterList($event)"></ion-searchbar>
     <ion-list>
       <div class="card-hover">
-        <ion-card *ngFor="let school of filteredSchools" (click)="schoolSelected(school.id)">
+        <ion-card *ngFor="let school of schools" (click)="schoolSelected(school.id)">
           <ion-item>
             <ion-icon slot="start" name="star"></ion-icon>
             <ion-header>

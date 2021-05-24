@@ -10,8 +10,7 @@ import { LernsiegService } from '../core/lernsieg.service';
 })
 export class SchoolPage implements OnInit {
   id: number;
-  school: SchoolDto = {id: 0, name: 'HTBLA Grieskirchen', country: 'at',
-                      schoolNumber: 0, address: '4770 Grieskirchen'}
+  school: SchoolDto = {id: 0, name: "", country: "", schoolNumber: 0, address: ""}
   showSchoolEvaluation: boolean = true;
   showTeachers: boolean = false;
   segment: any;
@@ -25,9 +24,9 @@ export class SchoolPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(x => {
       console.log(`school_comp: ${x.get('id')}`);
       this.id = Number(x.get('id'));
-      /* this.lernsiegService.getSchool(this.id).subscribe(x => {
+      this.lernsiegService.getSchool(this.id).subscribe(x => {
           this.school = x;
-      }); */
+      });
     });
   }
 

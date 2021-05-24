@@ -30,16 +30,23 @@ namespace LernsiegBackend.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                Address = x.Address,
                 Country = x.Country,
-                SchoolNumber = x.SchoolNumber
+                SchoolNumber = x.SchoolNumber,
+                Address = x.Address, 
             });
         }
 
-        [HttpGet]
+        [HttpGet("{country}/{filter}")]
         public IEnumerable<SchoolDto> FindSchools(string country, string filter)
         {
-            return null;
+            return lernsiegService.FindSchools(country, filter).Select(x => new SchoolDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Country = x.Country,
+                SchoolNumber = x.SchoolNumber,
+                Address = x.Address
+            });
         }
 
         [HttpGet("{id}")]
@@ -50,17 +57,35 @@ namespace LernsiegBackend.Controllers
             {
                 Id = school.Id,
                 Name = school.Name,
-                Address = school.Address,
                 Country = school.Country,
-                SchoolNumber = school.SchoolNumber
+                SchoolNumber = school.SchoolNumber,
+                Address = school.Address,
             };
             return schoolDto;
         }
 
-        [HttpGet]
-        public IEnumerable<TeacherDto> FindTeachers(int schoolId, string filter)
+        [HttpGet("{schoolNumber}")]
+        public IEnumerable<TeacherDto> GetTeachersOfSchool(int schoolNumber)
         {
-            return null;
+            return lernsiegService.GetTeachersOfSchool(schoolNumber).Select(x => new TeacherDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Title = x.Title
+            });
+        }
+
+        [HttpGet("{schoolNumber}/{filter}")]
+
+        [HttpGet]
+        public IEnumerable<TeacherDto> FindTeachers(int schoolNumber, string filter)
+        {
+            return lernsiegService.FindTeachers(schoolNumber, filter).Select(x => new TeacherDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Title = x.Title
+            });
         }
 
         [HttpGet("{id}")]
@@ -76,7 +101,7 @@ namespace LernsiegBackend.Controllers
             return teacherDto;
         }
 
-        [HttpGet("{schoolOrTeacherid, evaluationType}")]
+        [HttpGet("{schoolOrTeacherid}/{evaluationType}")]
         public IEnumerable<EvaluationDto> Evaluations(int schoolOrTeacherid, int evaluationType)
         {
             return lernsiegService.Evaluations(schoolOrTeacherid, evaluationType).Select(x => new EvaluationDto
@@ -84,7 +109,8 @@ namespace LernsiegBackend.Controllers
                 Id = x.Id,
                 SchoolOrTeacherId = x.SchoolOrTeacherId,
                 EvaluationType = x.EvaluationType,
-                PhoneNr = x.PhoneNr
+                PhoneNr = x.PhoneNr,
+                EvaluationItems = x.EvaluationItems
             });
         }
 
@@ -103,12 +129,15 @@ namespace LernsiegBackend.Controllers
         [HttpPost]
         public EvaluationReplyDto SaveEvaluation([FromBody] EvaluationSaveDto data)
         {
+            Console.WriteLine(data);
             Evaluation evaluation = new Evaluation
             {
                 SchoolOrTeacherId = data.SchoolOrTeacherId,
                 EvaluationType = data.EvaluationType,
-                PhoneNr = data.PhoneNr
+                PhoneNr = data.PhoneNr,
+                EvaluationItems = data.EvaluationItems
             };
+
             Evaluation evaluationReply = lernsiegService.SaveEvaluation(evaluation);
             return new EvaluationReplyDto
             {

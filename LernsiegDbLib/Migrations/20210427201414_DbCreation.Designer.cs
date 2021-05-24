@@ -4,14 +4,16 @@ using LernsiegDbLib;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LernsiegDbLib.Migrations
 {
     [DbContext(typeof(LernsiegContext))]
-    partial class LernsiegContextModelSnapshot : ModelSnapshot
+    [Migration("20210427201414_DbCreation")]
+    partial class DbCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,148 +40,6 @@ namespace LernsiegDbLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Criterias");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Klassenzimmer",
-                            EvaluationType = 1,
-                            SequenceNr = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Lehrangebot",
-                            EvaluationType = 1,
-                            SequenceNr = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Stimmung",
-                            EvaluationType = 1,
-                            SequenceNr = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Motivationsfähigkeit",
-                            EvaluationType = 1,
-                            SequenceNr = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Sportanlage",
-                            EvaluationType = 1,
-                            SequenceNr = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Mensa oder Kantine",
-                            EvaluationType = 1,
-                            SequenceNr = 6
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Supplierungen",
-                            EvaluationType = 1,
-                            SequenceNr = 7
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Bibliothek",
-                            EvaluationType = 1,
-                            SequenceNr = 8
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Sauberkeit",
-                            EvaluationType = 1,
-                            SequenceNr = 9
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Neue Medien",
-                            EvaluationType = 1,
-                            SequenceNr = 10
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "Veranstaltungen",
-                            EvaluationType = 1,
-                            SequenceNr = 12
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "Fridays for Future",
-                            EvaluationType = 1,
-                            SequenceNr = 12
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Description = "Unterricht",
-                            EvaluationType = 2,
-                            SequenceNr = 1
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Description = "Fairness",
-                            EvaluationType = 2,
-                            SequenceNr = 2
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Description = "Respekt",
-                            EvaluationType = 2,
-                            SequenceNr = 3
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Description = "Motivationsfähigkeit",
-                            EvaluationType = 2,
-                            SequenceNr = 4
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Description = "Geduld",
-                            EvaluationType = 2,
-                            SequenceNr = 5
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Description = "Vorbereitung",
-                            EvaluationType = 2,
-                            SequenceNr = 6
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Description = "Durchsetzungsfähigkeit",
-                            EvaluationType = 2,
-                            SequenceNr = 7
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Description = "Pünktlichkeit",
-                            EvaluationType = 2,
-                            SequenceNr = 8
-                        });
                 });
 
             modelBuilder.Entity("LernsiegDbLib.Evaluation", b =>
@@ -201,22 +61,6 @@ namespace LernsiegDbLib.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Evaluations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EvaluationType = 1,
-                            PhoneNr = "8907872346",
-                            SchoolOrTeacherId = 6
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EvaluationType = 1,
-                            PhoneNr = "069911343415",
-                            SchoolOrTeacherId = 401417
-                        });
                 });
 
             modelBuilder.Entity("LernsiegDbLib.EvaluationItem", b =>

@@ -20,15 +20,19 @@ export class LernsiegService {
   }
 
   findSchools(country: string, filter: string): Observable<SchoolDto[]>{
-    return this.httpClient.get<SchoolDto[]>(`${this.url}/FindSchools/${country}/${filter}}`);
+    return this.httpClient.get<SchoolDto[]>(`${this.url}/FindSchools/${country}/${filter}`);
   }
 
   getSchool(id: number): Observable<SchoolDto>{
     return this.httpClient.get<SchoolDto>(`${this.url}/GetSchool/${id}`);
   }
 
-  findTeachers(schoolId: number, filter: string): Observable<TeacherDto[]>{
-    return this.httpClient.get<TeacherDto[]>(`${this.url}/FindTeachers/${schoolId}/${filter}`);
+  getTeachersOfSchool(schoolId: number): Observable<TeacherDto[]>{
+    return this.httpClient.get<TeacherDto[]>(`${this.url}/GetTeachersOfSchool/${schoolId}`);
+  }
+
+  findTeachers(schoolNumber: number, filter: string): Observable<TeacherDto[]>{
+    return this.httpClient.get<TeacherDto[]>(`${this.url}/FindTeachers/${schoolNumber}/${filter}`);
   }
 
   getTeacher(id: number): Observable<TeacherDto>{
@@ -39,7 +43,7 @@ export class LernsiegService {
     return this.httpClient.get<EvaluationDto[]>(`${this.url}/Evaluations/${schoolOrTeacherId}/${evaluationType}`);
   }
 
-  getCriterias(evaluationType: string): Observable<CriteriaDto[]>{
+  getCriterias(evaluationType: number): Observable<CriteriaDto[]>{
     return this.httpClient.get<CriteriaDto[]>(`${this.url}/Criterias/${evaluationType}`);
   }
 

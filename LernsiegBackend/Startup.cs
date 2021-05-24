@@ -20,6 +20,7 @@ namespace LernsiegBackend
 {
     public class Startup
     {
+        private readonly string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,6 +41,14 @@ namespace LernsiegBackend
                 options.UseSqlServer(connectionString));
             services.AddScoped<LernsiegService>();
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(myAllowSpecificOrigins,
+                    x => x.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             
         }
 

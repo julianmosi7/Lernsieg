@@ -10,7 +10,7 @@ import { LernsiegService } from '../core/lernsieg.service';
 })
 export class TeacherevaluationPage implements OnInit {
   id: number;
-  teacher: TeacherDto = {id: 0, name: "Julian", title: "Ing"};
+  teacher: TeacherDto = {id: 0, name: "", title: "", schoolNumber: 0};
 
   constructor(private activatedRoute: ActivatedRoute,
               private lernsiegService: LernsiegService,
@@ -19,6 +19,9 @@ export class TeacherevaluationPage implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(x => {
       this.id = Number(x.get('id'));
+      this.lernsiegService.getTeacher(this.id).subscribe(x => {
+        this.teacher = x;
+      })
     });
   }
 

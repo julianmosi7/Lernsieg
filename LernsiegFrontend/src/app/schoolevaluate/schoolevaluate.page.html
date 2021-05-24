@@ -12,17 +12,10 @@
     </ion-item>
     
     <ion-list>
-      <ion-item>
-        <ion-label slot="start">Klassenzimmer</ion-label>
-        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
-      </ion-item>
-      <ion-item>
-        <ion-label slot="start">Lehrangebot</ion-label>
-        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
-      </ion-item>
-      <ion-item>
-        <ion-label slot="start">Stimmung</ion-label>
-        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" [(ngModel)]="range"></ion-range>
+      <ion-item *ngFor="let criteria of criteriaEvaluations">
+        <ion-label slot="start">{{criteria.description}}</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" ticks="true" pin="true" 
+        [(ngModel)]="criteria.value"></ion-range>
       </ion-item>
     </ion-list>
   </div>

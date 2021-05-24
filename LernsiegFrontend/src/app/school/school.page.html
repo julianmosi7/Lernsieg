@@ -19,6 +19,6 @@
       </ion-segment-button>
     </ion-segment>
     <app-schoolevaluation [school]="school" *ngIf="showSchoolEvaluation"></app-schoolevaluation>
-    <app-teacher *ngIf="showTeachers"></app-teacher>
+    <app-teacher [school]="school" *ngIf="showTeachers"></app-teacher>
   </div>
 </ion-content>
